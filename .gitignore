@@ -1,0 +1,13 @@
+# Data too large for GitHub (each member regenerates it)
+data/raw/*
+data/interim/*
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+
+# Secrets and environments
+.env
+venv/
+
+# Python and notebook clutter
+__pycache__/
+.ipynb_checkpoints/
