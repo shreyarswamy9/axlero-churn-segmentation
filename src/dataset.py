@@ -1,11 +1,11 @@
-﻿"""Load the Online Retail II data and move it into PostgreSQL."""
+"""Load the Online Retail II data and move it into PostgreSQL."""
 
 import os
 from pathlib import Path
 
 import pandas as pd
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
 RAW_EXCEL = Path("data/raw/online_retail_II.xlsx")
 RAW_CSV = Path("data/interim/transactions_raw.csv")
@@ -65,8 +65,8 @@ def load_to_postgres(df: pd.DataFrame) -> None:
 
 def run_query(sql_file: str) -> pd.DataFrame:
     """Run a .sql file from the sql/ folder and return the result."""
-    query = Path(sql_file).read_text()
-    return pd.read_sql(query, get_engine())
+    query = Path(sql_file).read_text(encoding="utf-8-sig")
+    return pd.read_sql(text(query), get_engine())
 
 
 if __name__ == "__main__":
