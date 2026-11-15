@@ -44,3 +44,33 @@ def load_raw_data() -> pd.DataFrame:
     RAW_CSV.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(RAW_CSV, index=False)
     return df
+
+
+def get_engine():
+    """Connect to PostgreSQL using the DATABASE_URL in the .env file."""
+    load_dotenv()
+    return create_engine(os.environ["DATABASE_URL"])
+
+
+def load_to_postgres(df: pd.DataFrame) -> None:
+    """Write the raw data into a table called transactions."""
+    df.to_sql(
+        "transactions",
+        get_engine(),
+        if_exists="replace",
+        index=False,
+        chunksize=10_000,
+    )
+
+
+def run_query(sql_file: str) -> pd.DataFrame:
+    """Run a .sql file from the sql/ folder and return the result."""
+    query = Path(sql_file).read_text()
+    return pd.read_sql(query, get_engine())
+
+
+if __name__ == "__main__":
+    data = load_raw_data()
+    print(f"Loaded {len(data):,} rows")
+    load_to_postgres(data)
+    print("Saved to PostgreSQL table 'transactions'")
