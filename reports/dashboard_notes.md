@@ -13,3 +13,8 @@
 ## Design Standards
 - Consistent segment color palette across all 3 pages.
 - Insight-driven chart titles stating the key takeaway rather than generic variable labels.
+
+## Baseline SQL Findings (for Page 1 KPIs & Callouts)
+- **Raw Dataset**: 1,067,371 transaction rows across 53,628 invoices (Dec 2009 – Dec 2011).
+- **Clean Customer Base**: 5,878 identified customers after removing 243,007 guest rows and 19,494 cancelled invoices.
+- **Geographic Concentration**: United Kingdom leads with 36,535 orders across 5,350 customers (£17.87M revenue), followed by EIRE (£664K), Netherlands (£554K), Germany (£431K), and France (£357K).
